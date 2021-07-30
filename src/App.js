@@ -1,25 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import Switch from './Switch';
+import './style.css';
+//import Button from "@material-ui/core/Button";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  static defaultProps = {
+    onToggle: () => {}
+  }
+
+  state = {
+    on: false
+  }
+
+  toggle = () =>
+    this.setState(
+      ({on}) => ({on: !on}),
+      () => {
+        this.props.onToggle(this.state.on)
+      },
+    )
+    
+  render() {
+    const {on} = this.state
+    return (
+      <>
+      <h1>Welcome to the world of Aliens!</h1>
+      {/* <Button style={{marginLeft:'30px',marginBottom:'8px'}} variant="contained" color="primary">
+       World
+      </Button> */}
+      <Switch on={on} onClick={this.toggle} />
+      </>
+    )
+  }
 }
 
 export default App;
